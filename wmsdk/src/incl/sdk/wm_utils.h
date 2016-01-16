@@ -205,8 +205,8 @@ int random_unregister_seed_handler(random_hdlr_t func);
  * The get_random_sequence() uses a random number generator that is
  * initialized with a seed when get_random_sequence() is called for the first
  * time. The handlers registered using random_register_seed_handler() are
- * used to generate the seed. If an applications wants to explicitly initialize
- * The seed, this API can be used. the seed will then not be re-initialized
+ * used to generate the seed. If an application wants to explicitly initialize
+ * the seed, this API can be used. The seed will then not be re-initialized
  * in get_random_sequence().
  */
 void random_initialize_seed();

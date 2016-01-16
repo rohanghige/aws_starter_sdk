@@ -94,7 +94,7 @@ static void configure_gpios()
 	/* Configure GPIO pin function for GPIO connected to LED */
 	pinmux_drv_setfunc(pinmux_dev, gpio_led, GPIO_LED_FN);
 
-	/* Confiugre GPIO pin direction as Output */
+	/* Configure GPIO pin direction as Output */
 	gpio_drv_setdir(gpio_dev, gpio_led, GPIO_OUTPUT);
 	/* Keep initial state of LED: ON */
 	gpio_drv_write(gpio_dev, gpio_led, 0);
@@ -102,7 +102,7 @@ static void configure_gpios()
 	/* Configure GPIO pin function for GPIO connected to push button */
 	pinmux_drv_setfunc(pinmux_dev, gpio_pushbutton, GPIO_PUSHBUTTON_FN);
 
-	/* Confiugre GPIO pin direction as input */
+	/* Configure GPIO pin direction as input */
 	gpio_drv_setdir(gpio_dev, gpio_pushbutton, GPIO_INPUT);
 
 	/* Register a callback for push button interrupt */
