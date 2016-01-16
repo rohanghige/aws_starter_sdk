@@ -114,7 +114,7 @@ static void pushbutton_b_cb()
 		pushbutton_b_count++;
 }
 
-/* COnfigure led and pushbuttons with callback functions */
+/* Configure led and pushbuttons with callback functions */
 static void configure_led_and_button()
 {
 	/* respective GPIO pins for pushbuttons and leds are defined in
@@ -200,7 +200,7 @@ void shadow_update_status_cb(const char *pThingName, ShadowActions_t action,
 			     void *pContextData) {
 
 	if (status == SHADOW_ACK_TIMEOUT) {
-		wmprintf("Shadow publish state change timeout occured\r\n");
+		wmprintf("Shadow publish state change timeout occurred\r\n");
 	} else if (status == SHADOW_ACK_REJECTED) {
 		wmprintf("Shadow publish state change rejected\r\n");
 	} else if (status == SHADOW_ACK_ACCEPTED) {
