@@ -16,6 +16,8 @@
 #    note that this requires a corresponding stripping of $(b-output-dir-y)/ in the %.o:%.c rule
 $(foreach l,$(libs-y),$(eval $(l)-objs-y := $(foreach s,$($(l)-objs-y),$(b-output-dir-y)/$(d)/$(s:%.c=%.o))))
 $(foreach l,$(libs-y),$(eval $(l)-objs-y := $(foreach s,$($(l)-objs-y),$(s:%.S=%.o))))
+$(foreach l,$(libs-y),$(eval $(l)-objs-y := $(foreach s,$($(l)-objs-y),$(s:%.cc=%.o))))
+$(foreach l,$(libs-y),$(eval $(l)-objs-y := $(foreach s,$($(l)-objs-y),$(s:%.cpp=%.o))))
 $(foreach l,$(libs-y),$(eval $(l)-objs-y := $(foreach s,$($(l)-objs-y),$(s:%.s=%.o))))
 
 b-clean-y += $(foreach l,$(libs-y),$($(l)-objs-y))
@@ -42,6 +44,8 @@ prebuilt-libs-y=
 #  - use myprog-board-y if defined by myprog, otherwise assign BOARD_FILE to
 #    myprog-board-y
 #  - add board file to myprog-objs-y
+
+exec-y += $(exec-cpp-y)
 $(foreach l,$(exec-y),$(eval $(l)-board-y ?= $(BOARD_FILE)))
 $(foreach l,$(exec-y),$(eval $(l)-objs-y += $(notdir $($(l)-board-y))))
 $(foreach l,$(exec-y),$(eval $(l)-output-dir-y := $(b-output-dir-y)/$(notdir ${$(l)-board-y:.c=})))
@@ -52,6 +56,8 @@ $(foreach l,$(exec-y),$(eval $(l)-output-dir-y := $(b-output-dir-y)/$(notdir ${$
 #  - add $(b-output-dir-y)/ as a prefix, so all the objects are in a directory together
 #    note that this requires a corresponding stripping of $(b-output-dir-y)/ in the %.o:%.c rule
 $(foreach l,$(exec-y),$(eval $(l)-objs-y := $(foreach s,$($(l)-objs-y),$(b-output-dir-y)/$(d)/$(s:%.c=%.o))))
+$(foreach l,$(exec-y),$(eval $(l)-objs-y := $(foreach s,$($(l)-objs-y),$(s:%.cc=%.o))))
+$(foreach l,$(exec-y),$(eval $(l)-objs-y := $(foreach s,$($(l)-objs-y),$(s:%.cpp=%.o))))
 $(foreach l,$(exec-y),$(eval $(l)-objs-y := $(foreach s,$($(l)-objs-y),$(s:%.s=%.o))))
 $(foreach l,$(exec-y),$(eval $(l)-objs-y := $(foreach s,$($(l)-objs-y),$(s:%.S=%.o))))
 b-clean-y += $(foreach l,$(exec-y),$($(l)-objs-y))
@@ -66,5 +72,12 @@ b-clean-y += $(foreach l,$(exec-y),$($(l)-output-dir-y)/$(l).bin $($(l)-output-d
 b-deps-y +=  $(foreach l,$(exec-y),$(foreach s,$($(l)-objs-y),$(s:%.o=%.d)))
 b-clean-y += $(foreach l,$(exec-y),$(foreach s,$($(l)-objs-y),$(s:%.o=%.d)))
 $(foreach l,$(exec-y),$(eval $(l)-dir-y := $(d)))
+
+# Assigning ld options for exec-y and exec-cpp-y, which is used for axf
+# generation
+$(foreach l,$(exec-y),$(eval $(l)-LD := $(CC)))
+$(foreach l,$(exec-cpp-y),$(eval $(l)-LD := $(CPP)))
+
 b-exec-y += $(exec-y)
 exec-y=
+exec-cpp-y=

@@ -27,7 +27,6 @@ global-cflags-y := -mthumb -g -Os -fdata-sections -ffunction-sections -ffreestan
 LDFLAGS-$(CONFIG_CPU_MW300) += -Xlinker --defsym=_rom_data=64
 
 global-cflags-y += \
-	 -Iwmsdk/src/incl/libc                            \
 	 -Iwmsdk/src/incl/sdk                             \
 	 -Iwmsdk/src/incl/sdk/drivers                     \
 	 -Iwmsdk/src/incl/sdk/drivers/$(arch_name-y)      \

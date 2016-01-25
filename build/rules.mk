@@ -70,10 +70,21 @@ define b-cmd-c-to-o
   @echo " [cc] $@"
 endef
 
+
+define b-cmd-cpp-to-o
+  @echo " [cpp] $@"
+  $(AT)$(CPP) $(b-trgt-cflags-y) $(global-cflags-y) -o $(2) -c $(1) -MMD
+endef
+
+
 # Rule for creating an object file
 # strip off the $(b-output-dir-y) from the C files pathname
 $(b-output-dir-y)/%.o: %.c $(b-autoconf-file)
 	$(call b-cmd-c-to-o,$<,$@)
+$(b-output-dir-y)/%.o: %.cpp $(b-autoconf-file)
+	$(call b-cmd-cpp-to-o,$<,$@)
+$(b-output-dir-y)/%.o: %.cc $(b-autoconf-file)
+	$(call b-cmd-cpp-to-o,$<,$@)
 $(b-output-dir-y)/%.o: %.S $(b-autoconf-file)
 	$(call b-cmd-c-to-o,$<,$@)
 $(b-output-dir-y)/%.o: %.s $(b-autoconf-file)
@@ -112,7 +123,7 @@ all-libs: $(foreach l,$(b-libs-y),$(l).a)
 
 
 define b-cmd-axf
-  $(AT)$(CC) -o $(2) $($(1)-objs-y) $($(1)-lflags-y) $(b-trgt-cflags-y) -Wl,--start-group $($(1)-extralibs-y) $(b-libs-paths-y) $(b-prebuilt-libs-y) -Wl,--end-group -T $($(1)-ld-y) -nostartfiles -Xlinker -M -Xlinker -Map=$(2:%.axf=%.map) -Xlinker --cref -Xlinker --gc-sections $(LDFLAGS-y) $(global-cflags-y)
+  $(AT)$($(1)-LD) -o $(2) $($(1)-objs-y) $($(1)-lflags-y) $(b-trgt-cflags-y) -Wl,--start-group $($(1)-extralibs-y) $(b-libs-paths-y) $(b-prebuilt-libs-y) -Wl,--end-group -T $($(1)-ld-y) -nostartfiles -Xlinker -M -Xlinker -Map=$(2:%.axf=%.map) -Xlinker --cref -Xlinker --gc-sections $(LDFLAGS-y) $(global-cflags-y)
   @echo " [axf] $(abspath $(2))"
 endef
 

@@ -1445,7 +1445,7 @@ static inline void os_mem_free(void *ptr)
  */
 static inline int os_heap_add_bank(void *start, size_t size)
 {
-	int ret = prvHeapAddMemBank((start), (size));
+	int ret = prvHeapAddMemBank((char *)(start), (size));
 	return ret == pdPASS ? WM_SUCCESS : -WM_FAIL;
 }
 

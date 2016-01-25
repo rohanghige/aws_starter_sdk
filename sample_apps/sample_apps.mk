@@ -4,6 +4,7 @@
 # The list of sample_apps
 
 subdir-y                         += sample_apps/hello_world
+subdir-y                         += sample_apps/hello_world_cpp
 
 subdir-y                         += sample_apps/aws_starter_demo
 
