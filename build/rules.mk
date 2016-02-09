@@ -66,14 +66,14 @@ $(foreach l,$(b-libs-y),$(eval $($(l)-objs-y): b-trgt-cflags-y := $($(l)-cflags-
 # build output directory to the corresponding C file in the src directory
 #
 define b-cmd-c-to-o
-  $(AT)$(CC) $(b-trgt-cflags-y) $(global-cflags-y) -o $(2) -c $(1) -MMD
+  $(AT)$(CC) $(b-trgt-cflags-y) $(global-cflags-y) $(global-c-cflags-y) -o $(2) -c $(1) -MMD
   @echo " [cc] $@"
 endef
 
 
 define b-cmd-cpp-to-o
   @echo " [cpp] $@"
-  $(AT)$(CPP) $(b-trgt-cflags-y) $(global-cflags-y) -o $(2) -c $(1) -MMD
+  $(AT)$(CPP) $(b-trgt-cflags-y) $(global-cflags-y) $(global-cpp-cflags-y) -o $(2) -c $(1) -MMD
 endef
 
 

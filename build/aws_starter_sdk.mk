@@ -32,6 +32,13 @@ global-cflags-y += \
 	 -Iwmsdk/src/incl/sdk/drivers/$(arch_name-y)      \
 	 -Iwmsdk/src/incl/sdk/drivers/$(arch_name-y)/regs \
 
+# Currently contains 'libc' path
+global-c-cflags-y := \
+	 -Iwmsdk/src/incl/libc \
+
+# Currently empty
+global-cpp-cflags-y :=
+
 global-cflags-y-$(CONFIG_ENABLE_LTO) += -flto -ffat-lto-objects
 LDFLAGS-$(CONFIG_ENABLE_LTO) += -Xlinker -flto
 
