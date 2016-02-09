@@ -9,6 +9,7 @@ endif
 
 # $(CURDIR) should be SDK directory path
 CC    := $(CURDIR)/build/toolchains/convertcc.sh
+CPP   := $(CURDIR)/build/toolchains/convertcpp.sh
 LD    := $(CURDIR)/build/toolchains/convertld.sh
 AR    := $(CURDIR)/build/toolchains/convertar.sh
 
